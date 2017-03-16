@@ -155,9 +155,12 @@ This section describes the general procedure followed to build a predictive mode
 
 ## Next day NDX prediction : Number of clusters
 In this section the number of clusters is varied and we show the influence on the prediction results.
-![alt text](Udacity_Capstone/Figures/NDX_Clusters_cv.pdf)
 
+![Alt text][NDXtrain]
+![Alt text][NDXtest]
 
+[NDXtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_cv.png  "Score on trai and CV sets"
+[NDXtest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test.png  "Score on test set"
 
 ## Blahh
 ## Blahh
