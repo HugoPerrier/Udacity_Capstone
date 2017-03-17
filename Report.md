@@ -159,7 +159,7 @@ In this section the number of clusters is varied and we show the influence on th
 ![Alt text][NDXtrain]
 ![Alt text][NDXtest]
 
-[NDXtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_cv.png  "Score on trai and CV sets"
+[NDXtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_train.png  "Score on train and CV sets"
 [NDXtest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test.png  "Score on test set"
 
 ## Blahh
