@@ -38,7 +38,9 @@ The software requirements to build the predictive models are:
 To create a machine learning model to make predictions, it is necessary to first "train" the model using past data. In the context of stock market pricing, the model is trained using historical data of the stock prices. For example we can use data from the past period 2003 to 2005 to train a model and then use that model to make predictions about the future. The stock price data consist of the following informations:
 | Open | High | Low | Close | Volume | Dividend | Split Ratio |  
 |:-----:|:------:|:------:|:-----:|:------:|:------:|:-----:|
+
 and ajusted values:
+
 | Adj. Open | Adj. Close | Adj. Low | Adj. High | Adj. Volume |
 |:-----:|:------:|:------:|:-----:|:------:|
 
@@ -153,17 +155,8 @@ This section describes the general procedure followed to build a predictive mode
     - Train the model using the training data
     - Predict NDX and score the model on the train, cv and test sets
 
-## Next day NDX prediction : Number of clusters
-In this section the number of clusters is varied and we show the influence on the prediction results.
-
-![Alt text][NDXtrain]
-![Alt text][NDXtest]
-
-[NDXtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_train.png  "Score on train and CV sets"
-[NDXtest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test.png  "Score on test set"
-
 ## Next day NDX prediction : Features
-In this section, the influence of the choice of feature on predictions is tested. The data from the last 3 days is used to make predictions.
+In this section, the influence of the choice of features on predictions is tested. A linear regression model is fitted to the data of the companies American Airlines Group and Adobe Systems Incorporated from the last 3 days.
 
 | Features | Score |
 |:-----:|:-----:|
@@ -175,17 +168,74 @@ In this section, the influence of the choice of feature on predictions is tested
 | AdjOpen, AdjClose, AdjHigh | 0.967740 |
 | AdjOpen, AdjClose, Split | 0.969362 |
 
-The results presented in the table show that the best prediction score is obtained when adjusted variables are used. In particular, using just the "AdjOpen" and "AdjClose" features give the best result, adding more features do not increase the prediction score.
+The results presented in the table show that the best prediction score is obtained when adjusted variables are used. In particular, using just the "AdjOpen" and "AdjClose" features give the best result, adding more features do not increase the prediction score. For the rest of the report the features "AdjOpen" and "AdjClose" will be used.
+
+
+## Next day NDX prediction : Single company data
+In this section a linear regression model is fitted using "AdjOpen" and "AdjClose" data from the last 3 days for a single companies. The table below shows the best prediction results on the test dataset.
+
+| Company | Score |
+|:-----:|:-----:|
+| Maxim Integrated Products, Inc. | 0.823026 |
+| Microchip Technology Incorporated | 0.796815 |
+| Cisco Systems, Inc. | 0.706128 |
+| Lam Research Corporation | 0.656457 |
+| T-Mobile US, Inc. | 0.607240 |
+
+The company that yields the best prediction data is Maxim Integrated Products:
+"Maxim Integrated is an American, publicly traded company that designs, manufactures, and sells analog and mixed-signal integrated circuits." [(Wikipedia)](https://en.wikipedia.org/wiki/Maxim_Integrated) 
+
+
+Using data of more than one company could improve the results, however including too many companies would increase the computational cost. Selecting the companies that give the best results on the single company test is probably not a good idea as this company might carry mostly the same information (Indeed the top 3 companies are all related to sales of electronical components). A better way to do it is to use a clustering algorithm to group similar companies and pick a company companies from each cluster to make predictions.
 
 ## Next day NDX prediction : Number of clusters
-In this section the number of clusters is varied and we show the influence on the prediction results.
+In this section, the Kmeans clustering algorithm is used to group similar companies and the first company (in alphabetical order) in each cluster is selected to represent the whole cluster and is used to make predictions. A linear regression model is fitted using "AdjOpen" and "AdjClose" data from the last 3 days. The graphs below shows the prediction results on the different datasets.
 
+The influence of clustering is analysed again but taking into account the results of the previous section, the features "AdjOpen" and "AdjClose" are used.
 
+***Result on the train and cross validation datasets**
 ![Alt text][NDXtrainAdj]
+***Result on the test dataset**
 ![Alt text][NDXtestAdj]
+
+The prediction scores are much higher than for the previous clustering test however using many clusters of companies still does not seem to improve the predictions.
 
 [NDXtrainAdj]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_train2.png  "Score on train and CV sets"
 [NDXtestAdj]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test2.png  "Score on test set"
+
+
+
+## Next day NDX prediction : Number of clusters
+In this section the number of clusters is varied and we show the influence on the prediction results. Here the features "Open" and "Close" of the last 3 days are used for predictions.
+
+***Result on the train and cross validation datasets*
+![Alt text][NDXtrain]
+***Result on the test dataset**
+![Alt text][NDXtest]
+
+The graphs above show that the predictions on the test set are very variable, some have negative score (prediction very far away from expected result) and some yield better prediction score. As mentionned before, the clustering is very sensitive to the number of cluster chosen so that could explain the variability of the results.
+
+[NDXtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_train.png  "Score on train and CV sets"
+[NDXtest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test.png  "Score on test set"
+
+
+
+## Next day NDX prediction : Number of days of historical data
+In this section, the influence of the number of days of historical data used for prediction is tested.
+
+***Result on the train and cross validation datasets**
+![Alt text][NDXhistTrain]
+***Result on the test dataset**
+![Alt text][NDXhistTest]
+
+It appears that using fewer days for prediction gives better results. The best prediction score is obtained using 3 days.
+
+[NDXhistTrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_nHist_train.png  "Score on train and CV sets"
+[NDXhistTest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_nHist_test.png  "Score on test set"
+
+
+## Five days NDX prediction
+
 
 
 ## Blahh
