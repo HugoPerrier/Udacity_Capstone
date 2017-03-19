@@ -160,7 +160,7 @@ In this section the number of clusters is varied and we show the influence on th
 
 ***Result on the train and cross validation datasets*
 ![Alt text][NDXtrain]
-***Result on the test dataset*
+***Result on the test dataset**
 ![Alt text][NDXtest]
 
 The graphs above show that the predictions on the test set are very variable, some have negative score (prediction very far away from expected result) and some yield better prediction score. As mentionned before, the clustering is very sensitive to the number of cluster chosen so that could explain the variability of the results.
@@ -186,7 +186,9 @@ The results presented in the table show that the best prediction score is obtain
 ## Next day NDX prediction : Number of clusters
 The influence of clustering is analysed again but taking into account the results of the previous section, the features "AdjOpen" and "AdjClose" are used.
 
+***Result on the train and cross validation datasets**
 ![Alt text][NDXtrainAdj]
+***Result on the test dataset**
 ![Alt text][NDXtestAdj]
 
 The prediction scores are much higher than for the previous clustering test however using many clusters of companies still does not seem to improve the predictions.
@@ -198,12 +200,19 @@ The prediction scores are much higher than for the previous clustering test howe
 ## Next day NDX prediction : Number of days of historical data
 In this section, the influence of the number of days of historical data used for prediction is tested.
 
+***Result on the train and cross validation datasets**
 ![Alt text][NDXhistTrain]
+***Result on the test dataset**
 ![Alt text][NDXhistTest]
 
+It appears that using fewer days for prediction gives better results. The best prediction score is obtained using 3 days.
 
 [NDXhistTrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_nHist_train.png  "Score on train and CV sets"
 [NDXhistTest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_nHist_test.png  "Score on test set"
+
+
+## Five days NDX prediction
+
 
 
 ## Blahh
