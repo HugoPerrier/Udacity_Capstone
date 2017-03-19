@@ -162,6 +162,32 @@ In this section the number of clusters is varied and we show the influence on th
 [NDXtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_train.png  "Score on train and CV sets"
 [NDXtest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test.png  "Score on test set"
 
+## Next day NDX prediction : Features
+In this section, the influence of the choice of feature on predictions is tested. The data from the last 3 days is used to make predictions.
+
+| Features | Score |
+|:-----:|:-----:|
+| Open, Close | -0.279566 |
+| Var, Close | -0.362602 |
+| AdjOpen, AdjClose | 0.968983 |
+| AdjOpen, AdjClose, Ex-Dividend | 0.968288 |
+| AdjOpen, AdjClose, AdjLow | 0.966636 |
+| AdjOpen, AdjClose, AdjHigh | 0.967740 |
+| AdjOpen, AdjClose, Split | 0.969362 |
+
+The results presented in the table show that the best prediction score is obtained when adjusted variables are used. In particular, using just the "AdjOpen" and "AdjClose" features give the best result, adding more features do not increase the prediction score.
+
+## Next day NDX prediction : Number of clusters
+In this section the number of clusters is varied and we show the influence on the prediction results.
+
+
+![Alt text][NDXtrainAdj]
+![Alt text][NDXtestAdj]
+
+[NDXtrainAdj]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_train2.png  "Score on train and CV sets"
+[NDXtestAdj]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test2.png  "Score on test set"
+
+
 ## Blahh
 ## Blahh
 ## Blahh
