@@ -38,7 +38,9 @@ The software requirements to build the predictive models are:
 To create a machine learning model to make predictions, it is necessary to first "train" the model using past data. In the context of stock market pricing, the model is trained using historical data of the stock prices. For example we can use data from the past period 2003 to 2005 to train a model and then use that model to make predictions about the future. The stock price data consist of the following informations:
 | Open | High | Low | Close | Volume | Dividend | Split Ratio |  
 |:-----:|:------:|:------:|:-----:|:------:|:------:|:-----:|
+
 and ajusted values:
+
 | Adj. Open | Adj. Close | Adj. Low | Adj. High | Adj. Volume |
 |:-----:|:------:|:------:|:-----:|:------:|
 
@@ -154,16 +156,20 @@ This section describes the general procedure followed to build a predictive mode
     - Predict NDX and score the model on the train, cv and test sets
 
 ## Next day NDX prediction : Number of clusters
-In this section the number of clusters is varied and we show the influence on the prediction results.
+In this section the number of clusters is varied and we show the influence on the prediction results. Here the features "Open" and "Close" of the last 3 days are used for predictions.
 
+***Result on the train and cross validation datasets*
 ![Alt text][NDXtrain]
+***Result on the test dataset*
 ![Alt text][NDXtest]
+
+The graphs above show that the predictions on the test set are very variable, some have negative score (prediction very far away from expected result) and some yield better prediction score. As mentionned before, the clustering is very sensitive to the number of cluster chosen so that could explain the variability of the results.
 
 [NDXtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_train.png  "Score on train and CV sets"
 [NDXtest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test.png  "Score on test set"
 
 ## Next day NDX prediction : Features
-In this section, the influence of the choice of feature on predictions is tested. The data from the last 3 days is used to make predictions.
+In this section, the influence of the choice of feature on predictions is tested. The data of the companies American Airlines Group and Adobe Systems Incorporated from the last 3 days are used to make predictions.
 
 | Features | Score |
 |:-----:|:-----:|
@@ -178,14 +184,26 @@ In this section, the influence of the choice of feature on predictions is tested
 The results presented in the table show that the best prediction score is obtained when adjusted variables are used. In particular, using just the "AdjOpen" and "AdjClose" features give the best result, adding more features do not increase the prediction score.
 
 ## Next day NDX prediction : Number of clusters
-In this section the number of clusters is varied and we show the influence on the prediction results.
-
+The influence of clustering is analysed again but taking into account the results of the previous section, the features "AdjOpen" and "AdjClose" are used.
 
 ![Alt text][NDXtrainAdj]
 ![Alt text][NDXtestAdj]
 
+The prediction scores are much higher than for the previous clustering test however using many clusters of companies still does not seem to improve the predictions.
+
 [NDXtrainAdj]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_train2.png  "Score on train and CV sets"
 [NDXtestAdj]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test2.png  "Score on test set"
+
+
+## Next day NDX prediction : Number of days of historical data
+In this section, the influence of the number of days of historical data used for prediction is tested.
+
+![Alt text][NDXhistTrain]
+![Alt text][NDXhistTest]
+
+
+[NDXhistTrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_nHist_train.png  "Score on train and CV sets"
+[NDXhistTest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_nHist_test.png  "Score on test set"
 
 
 ## Blahh
