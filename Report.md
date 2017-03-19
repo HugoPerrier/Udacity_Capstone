@@ -175,7 +175,18 @@ In this section, the influence of the choice of feature on predictions is tested
 | AdjOpen, AdjClose, AdjHigh | 0.967740 |
 | AdjOpen, AdjClose, Split | 0.969362 |
 
-It appears that using the adjusted variables makes a big difference. It also appear that 
+The results presented in the table show that the best prediction score is obtained when adjusted variables are used. In particular, using just the "AdjOpen" and "AdjClose" features give the best result, adding more features do not increase the prediction score.
+
+## Next day NDX prediction : Number of clusters
+In this section the number of clusters is varied and we show the influence on the prediction results.
+
+
+![Alt text][NDXtrainAdj]
+![Alt text][NDXtestAdj]
+
+[NDXtrainAdj]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_train2.png  "Score on train and CV sets"
+[NDXtestAdj]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test2.png  "Score on test set"
+
 
 ## Blahh
 ## Blahh
