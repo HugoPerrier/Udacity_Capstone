@@ -3,7 +3,7 @@ Udcity Capstone
 
 # 1. Introduction
 ## Stock Market
-The ownership of a company can belong to a single person but most of the time the ownership is divided between several shareholders. The value of these company shares depend of the total market valuation of the company which may change over time depending on a variety of factors. Stocks or company shares can be bought and sold, there is therefore a market for company shares called the Stock Market. Stock trades are performed in stock exchanges such as :
+The ownership of a company can belong to a single person but most of the time the ownership is divided between several shareholders. The values of these company shares depend of the total market valuation of the company which may change over time depending on a variety of factors. Stocks or company shares can be bought and sold, there is therefore a market for company shares called the Stock Market. Stock trades are performed in stock exchanges such as:
 - NASDAQ
 - London Stock Exchange Group
 - Tokyo Stock Exchange Group
@@ -15,7 +15,7 @@ The most valuable companies in 2015 according to the FT500 ranking (link) are:
 - Google
 - Microsoft 
 
-A good capacity to understand and prectict movements in the stock market is crucial for investers to make profitable investements. To help investers choose which investement will be most profitable, they can use large amount of data on the history of the stock prices of companies. To process all these data, predictive models are created using machine learning. Machine learning models are "trained" to predict future stock prices based on a set of available features. This report explores how machine learning can be used to predict stock prices.
+A good capacity to understand and predict movements in the stock market is crucial for investers to make profitable investments. To help investors choose which investment will be most profitable, they can use large amount of data on the history of the stock prices of companies. To process all these data, predictive models are created using machine learning. Machine learning models are "trained" to predict future stock prices based on a set of available features. This report explores how machine learning can be used to predict stock prices.
 
 ## Objective of the project
 The objective of this project is to create a predictive tool that uses machine learning to predict future value of the NASDAQ 100 index (NDX) using historical stock prices of different companies. The NASDAQ 100 index is a stock market index related to the capitalization value of the 100 largest non-financial companies [(NASDAQ 100)](http://www.nasdaq.com/markets/indices/nasdaq-100.aspx).
@@ -24,16 +24,16 @@ Section 2 of this report describes the data used to create a machine learning mo
 
 # 2. Data description
 ## Historical stock prices data
-To create a machine learning model to make predictions, it is necessary to first "train" the model using past data. In the context of stock market pricing, the model is trained using historical data of the stock prices. For example we can use data from the past period 2003 to 2005 to train a model and then use that model to make predictions about the future. The stock price data consist of the following informations:
+To create a machine learning model to make predictions, it is necessary to first "train" the model using past data. In the context of stock market pricing, the model is trained using historical data of the stock prices. For example we can use data from the past period 2003 to 2005 to train a model and then use that model to make predictions about the future. The stock price data consist of the following information:
 | Open | High | Low | Close | Volume | Dividend | Split Ratio |  
 |:-----:|:------:|:------:|:-----:|:------:|:------:|:-----:|
 
-and ajusted values:
+and adjusted values:
 
 | Adj. Open | Adj. Close | Adj. Low | Adj. High | Adj. Volume |
 |:-----:|:------:|:------:|:-----:|:------:|
 
-For a given day, the "Open" and "Close" values are the values of a stock at the opening and closing of the stock exchange. The "High" and "Low" value are the maximum and minimum values that the stock has reached during that day. The "Volume" is the total anount of stock that were sold on that day. Divident are XXX, Split ratio is XXX and the adjusted data are XXX.
+For a given day, the "Open" and "Close" values are the values of a stock at the opening and closing of the stock exchange. The "High" and "Low" value are the maximum and minimum values that the stock has reached during that day. The "Volume" is the total amount of stock that were sold on that day. Dividends are XXX, Split ratio is XXX and the adjusted data are XXX.
 
 
 ## Data Acquisition
@@ -61,11 +61,11 @@ However, to train a machine learning model, the datasets can not contain missing
 - Model the missing values
 - Remove the datapoints containing missing values
 
-Both option can impact the predictions therefore the way missing values are handled needs to be explained.
+Both options can impact the predictions therefore the way missing values are handled needs to be explained.
 In this project, all the companies whose data were not accessible through Quandl were not included in the model. If on a given day some companies have stock price data but others don't, the missing data are replaced with the data from the previous working day (This is called a forward fill method). 
 
 Below is a list of data that couldn't be accessed using Quandl:
-- JD, NCLH : Non american companies data are not available in the Quandl WIKI free database
+- JD, NCLH : Non American companies data are not available in the Quandl WIKI free database
 - KHC : Kraft Heinz Company didn't exist in 2013, Kraft and Heinz merged in 2015
 - PYPL : Paypal was a wholly owned subsidiary of eBay until 2015
 - WBA : Walgreens Boots didn't exist in 2013
@@ -76,13 +76,13 @@ When the data for different companies are queried from Quandl, they all have the
 
 ### Split of the data into train, cross validation and test datasets
 To create a machine learning model we create a set of data called training set for which the true value of NDX are known. This set is used to find the model (with fixed hyperparameters) coefficients that minimize the error between predictions and true values of NDX. 
-Then a cross validation set similar to the training set is used to find the hyperparameters that make the predictions as general as possible. In other words, the model shouldn't just be able to predict NDX values from the dataset used for training but it should  predict well NDX values for any other dataset.
+Then a cross validation set similar to the training set is used to find the hyperparameters that make the predictions as general as possible. In other words, the model shouldn't just be able to predict NDX values from the dataset used for training but it should predict well NDX values for any other dataset.
 Finally a test set is created to evaluate the performance of the model on data that were not used in the training process. The test dataset has to contain data posterior to the data in the training and cross validation sets as it is not possible to train a model using data from the future.
 
 ### Creation of the final features
 The objective of a predictive model is to predict future values of the NASDAQ 100 index, therefore company stock prices of day N should be used to predict NDX value of day N+1 or N+x. It is thus necessary to shift in time the NDX column compared to the feature columns.
 
-Finally, we need to choose which data are used as features to predict NDX, we can't use all of the historical data of every company prior to day N+1 to predict NDX on day N+1. It is therefore necessary to decide how many historical data to use for prediction, which features we want to use and adact the dataset accordingly. A mock-up dataset that could be used in a machine learning model using just the "Open" data from the previous 2 days of companies "X" and "Y" is shown below (the date is written down to help with explanation but it is not used as a feature):
+Finally, we need to choose which data are used as features to predict NDX, we can't use all of the historical data of every company prior to day N+1 to predict NDX on day N+1. It is therefore necessary to decide how many historical data to use for prediction, which features we want to use and adapt the dataset accordingly. A mock-up dataset that could be used in a machine learning model using just the "Open" data from the previous 2 days of companies "X" and "Y" is shown below (the date is written down to help with explanation but it is not used as a feature):
 
 | Date | X Open Day N-2 | X Open Day N-1 | Y Open Day N-2 | Y Open Day N-1 | NDX day N |
 |:-----:|:-----:|:------:|:------:|:-----:|:------:|
@@ -104,20 +104,20 @@ The software requirements to build the predictive models are:
 ## Regression models
 A regression model relates a set of features (historical stock prices of companies) to a prediction (NASDAQ 100 index "NDX"). The regression model specifies the type of relation between the inputs and outputs of the model (ex. linear relation) but the exact parameters of the model have to be calculated using known data. 
 
-In Machine Learning, an optimization algorithm is used to find the model parameters that minimize the difference between the regression model output and the true value of the output on a "training" data set. Then the performances of different regression models (or similar models with different "hyperparameters") are compared on a different data set called "cross-validation dataset".This makes sure that the accuracy of model predictions are not limited to the training dataset but generalisable to other datasets (a model that does not generalise well to other datasets is said to "overfit").
+In Machine Learning, an optimization algorithm is used to find the model parameters that minimize the difference between the regression model output and the true value of the output on a "training" data set. Then the performances of different regression models (or similar models with different "hyperparameters") are compared on a different data set called "cross-validation dataset". This makes sure that the accuracy of model predictions are not limited to the training dataset but generalizable to other datasets (a model that does not generalize well to other datasets is said to "overfit").
 
 The model used in the present work are:
 - Linear Regression : parameters normalize (True/False)
 - Support Vector Regression : parameters kernel (linear/poly/rbf)
 
 ### Data clustering
-Each of the companies in the NASDAQ 100 has an influence on the value of the NASDAQ 100 index value but using the historical data from all these companies to create a machine learning model would have a high computational cost (270 working day per year per company = 270 datapoints per year, 100 companies * 12 stock data per company per working day = 1200 features, input matrix has a size of 270*1200). It would then take a long time to train the models on a laptop. 
+Each of the companies in the NASDAQ 100 has an influence on the value of the NASDAQ 100 index value but using the historical data from all these companies to create a machine learning model would have a high computational cost (270 working day per year per company = 270 datapoints per year, 100 companies * 12 stock data per company per working day * Nday (number of days of historical data used) = 1200 Nday features, input matrix has a size of 270*1200Nday). It would then take a long time to train the models on a laptop. 
 
 To reduce the amount of data to work with companies that have similar behaviors can be grouped together. To do so, an unsupervised learning "clustering technique" is used: KMeans clustering. The Kmean clustering method takes as input the historical stock prices of all companies and a user defined number of desired clusters and outputs a list of companies in each cluster. 
 In practice, we calculate the daily variation for each datapoint: "Variation" = "Close" - "Open" and use the "Variation" variable as input data for the clustering.
 
-## Computational ressources
-The computer used for these calculations is a Macbook Pro 13-inch, Late 2011) with 8 GB of 1333 MHz DDR3 RAM and a 2.4 GHz Intel Core i5 processor. The linear regression models (linear regression + SVR(kernel="linear")) could be trained in a fraction of a second on a laptop with a 2 years long dataset for the training set, 2 features per companies and a few companies. On the other hand the training times for the non linear models quickly become prohebitively long as the number of features and datapoints increases.
+## Computational resources
+The computer used for these calculations is a Macbook Pro 13-inch, Late 2011) with 8 GB of 1333 MHz DDR3 RAM and a 2.4 GHz Intel Core i5 processor. The linear regression models (linear regression + SVR(kernel="linear")) could be trained in a fraction of a second on a laptop with a 2 years long dataset for the training set, 2 features per companies and a few companies. On the other hand the training times for the non linear models quickly become prohibitively long as the number of features and datapoints increases.
 
 ## Prediction score
 The R^2 score is used to score the result of the predictions. A R^2 score of 1.0 means the predictions correspond exactly to the true output, a R^2 of 0.0 is returned when the model predicts a constant output independently from the features and the R^2 score can be negative if the predictions are very different from the true output.
@@ -148,22 +148,22 @@ It should be noted that the clustering is not very stable, the following paramet
 
 It is still a good way to reduce the amount of data we use to build the predictive model.
 
-## Next day NDX prediction : Basics
+## Next day NDX prediction: Basics
 This section describes the general procedure followed to build a predictive model:
 1. Clustering
     - All Nasdaq 100 Company 2013 stock price data are acquired
     - Company that can't be accessed with Quandl are removed from the company list
     - Missing values in the dataset are filled (forward fill)
     - The "Variation" = "Close" - "Open" variable is calculated
-    - The desired number of company clusters are created using the "Variation" feature as input data.
+    - The desired number of company clusters is created using the "Variation" feature as input data.
     - The first company (in alphabetical order) of each cluster is chosen to represent the whole cluster.
     - A list of selected companies is saved to be used in the predictive model creation.
 2. Predictive model
-    - Stock price data of the companies chosen in the clustering process are acquired. The 2014-2015 period is used for the trainning/cross validation datasets and the 2016 period is used for the test set.
+    - Stock price data of the companies chosen in the clustering process are acquired. The 2014-2015 period is used for the training/cross validation datasets and the 2016 period is used for the test set.
     - Missing values are filled (forward fill)
     - The "Variation" = "Close" - "Open" variable is calculated. (It can be used as a potential engineered feature)
     - NASDAQ 100 index data are acquired from yahoo finance (using pandas finance data reader).
-    - The feature to be used to build the predictive model are chosen:
+    - The features to be used to build the predictive model are chosen:
         - Type of stock price data (ex. ["Open", "Close"] or ["Open", "Variation", "Close"])
         - Number of days used for prediction (ex. data from the last 3 days, data from the last 7 days, ...)
     - The final feature matrix is created (drop undesired features, create previous days features, give the feature matrix the right shape, etc)
@@ -171,7 +171,7 @@ This section describes the general procedure followed to build a predictive mode
     - Train the model using the training data
     - Predict NDX and score the model on the train, cv and test sets
 
-## Next day NDX prediction : Features
+## Next day NDX prediction: Features
 In this section, the influence of the choice of features on predictions is tested. A linear regression model is fitted to the data of the companies American Airlines Group and Adobe Systems Incorporated from the last 3 days.
 
 | Features | Score |
@@ -202,18 +202,18 @@ The company that yields the best prediction data is Maxim Integrated Products:
 "Maxim Integrated is an American, publicly traded company that designs, manufactures, and sells analog and mixed-signal integrated circuits." [(Wikipedia)](https://en.wikipedia.org/wiki/Maxim_Integrated) 
 
 
-Using data of more than one company could improve the results, however including too many companies would increase the computational cost. Selecting the companies that give the best results on the single company test is probably not a good idea as this company might carry mostly the same information (Indeed the top 3 companies are all related to sales of electronical components). A better way to do it is to use a clustering algorithm to group similar companies and pick a company companies from each cluster to make predictions.
+Using data of more than one company could improve the results, however including too many companies would increase the computational cost. Selecting the companies that give the best results on the single company test is probably not a good idea as this company might carry mostly the same information (Indeed the top 3 companies are all related to sales of electronic components). A better way to do it is to use a clustering algorithm to group similar companies and pick a company companies from each cluster to make predictions.
 
-## Next day NDX prediction : Number of clusters
+## Next day NDX prediction: Number of clusters
 In this section the number of clusters is varied and we show the influence on the prediction results. Here the features "Open" and "Close" of the last 3 days are used for predictions.
 
 **Result on the test dataset**
 ![Alt text][NDXtest]
 
-The graphs above show that the predictions on the test set are very variable, some have negative score (prediction very far away from expected result) and some yield better prediction score. As mentionned before, the clustering is very sensitive to the number of cluster chosen so that could explain the variability of the results.
+The graphs above show that the predictions on the test set are very variable, some have negative score (prediction very far away from expected result) and some yield better prediction score. As mentioned before, the clustering is very sensitive to the number of cluster chosen so that could explain the variability of the results.
 
-[NDXtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_train.png  "Score on train and CV sets"
-[NDXtest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test.png  "Score on test set"
+[NDXtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_train2.png  "Score on train and CV sets"
+[NDXtest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_Clusters_test2.png  "Score on test set"
 
 ## Next day NDX prediction : Number of days of historical data
 In this section, the influence of the number of days of historical data used for prediction is tested.
@@ -227,199 +227,23 @@ It appears that using fewer days for prediction gives better results. The best p
 [NDXhistTest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/NDX_nHist_test.png  "Score on test set"
 
 
-## Next day NDX prediction : Machine Learning Model
+## Next day NDX prediction: Machine Learning Model
 In this section, the influence of the Machine Learning model is tested.
 
+**Non linear models**
+- The SVR(kernel="poly") model could not be used as the computation cost was too high. 
+- The SVR(kernel="rbf") strongly overfitted the training dataset, this is probably due to the small number of data (540 for a 2 years period) compared to the number of features. The predictions on the test dataset were then very bad.
 
-## Five days NDX prediction
+**Linear models**
+The linear model used (Linear Regression, Ridge Regression, SVR(kernel="linear")) showed very similar results. The ridge regression was just slightly better than other models.
 
+To make better predictions, it would probably be better to have access to much more data than daily stock prices. Some expensive databases content stock prices data with frequencies lower than a second. With this amount of data it would be possible to prevent the non-linear models from overfitting and yield better results.
 
+## Conclusions
+In this work a machine learning model was set up to predict future value of the NASDAQ 100 index using historical stock prices of NASDAQ companies. A pipeline to acquire data, preprocess data, create training, cross validation and test data sets, fit the machine learning model and make predictions was set up.
 
-## Blahh
-## Blahh
-## Blahh
-Dillinger is a cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor.
+It was shown that using Adjusted data as features makes a big difference in the prediction score. Then predictions were made using data from just one company and it was shown that high prediction scores can be reached. Using the stock prices data from the company "Maxim Integrated Products" gave the best results.
 
-  - Type some Markdown on the left
-  - See HTML in the right
-  - Magic
+A clustering strategy was tested to group similar companies and to use just a few companies to represent all NASDAQ 100 companies when doing predictions. The company clustering did not improve the prediction results compared to using just a single company to make predictions. Another parameter that was tested is the number of days of historical data used to make predictions. It was shown that using just the 2 or 3 previous days to make predictions gives the best prediction results. 
 
-You can also:
-  - Import and save files from GitHub, Dropbox, Google Drive and One Drive
-  - Drag and drop files into Dillinger
-  - Export documents as Markdown, HTML and PDF
-
-Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email.  As [John Gruber] writes on the [Markdown site][df1]
-
-> The overriding design goal for Markdown's
-> formatting syntax is to make it as readable
-> as possible. The idea is that a
-> Markdown-formatted document should be
-> publishable as-is, as plain text, without
-> looking like it's been marked up with tags
-> or formatting instructions.
-
-This text you see here is *actually* written in Markdown! To get a feel for Markdown's syntax, type some text into the left window and watch the results in the right.
-
-### Tech
-
-Dillinger uses a number of open source projects to work properly:
-
-* [AngularJS] - HTML enhanced for web apps!
-* [Ace Editor] - awesome web-based text editor
-* [markdown-it] - Markdown parser done right. Fast and easy to extend.
-* [Twitter Bootstrap] - great UI boilerplate for modern web apps
-* [node.js] - evented I/O for the backend
-* [Express] - fast node.js network app framework [@tjholowaychuk]
-* [Gulp] - the streaming build system
-* [keymaster.js] - awesome keyboard handler lib by [@thomasfuchs]
-* [jQuery] - duh
-
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
-
-### Installation
-
-Dillinger requires [Node.js](https://nodejs.org/) v4+ to run.
-
-Download and extract the [latest pre-built release](https://github.com/joemccann/dillinger/releases).
-
-Install the dependencies and devDependencies and start the server.
-
-```sh
-$ cd dillinger
-$ npm install -d
-$ node app
-```
-
-For production environments...
-
-```sh
-$ npm install --production
-$ npm run predeploy
-$ NODE_ENV=production node app
-```
-
-### Plugins
-
-Dillinger is currently extended with the following plugins
-
-* Dropbox
-* Github
-* Google Drive
-* OneDrive
-
-Readmes, how to use them in your own application can be found here:
-
-* [plugins/dropbox/README.md] [PlDb]
-* [plugins/github/README.md] [PlGh]
-* [plugins/googledrive/README.md] [PlGd]
-* [plugins/onedrive/README.md] [PlOd]
-
-### Development
-
-Want to contribute? Great!
-
-Dillinger uses Gulp + Webpack for fast developing.
-Make a change in your file and instantanously see your updates!
-
-Open your favorite Terminal and run these commands.
-
-First Tab:
-```sh
-$ node app
-```
-
-Second Tab:
-```sh
-$ gulp watch
-```
-
-(optional) Third:
-```sh
-$ karma start
-```
-#### Building for source
-For production release:
-```sh
-$ gulp build --prod
-```
-Generating pre-built zip archives for distribution:
-```sh
-$ gulp build dist --prod
-```
-### Docker
-Dillinger is very easy to install and deploy in a Docker container.
-
-By default, the Docker will expose port 80, so change this within the Dockerfile if necessary. When ready, simply use the Dockerfile to build the image.
-
-```sh
-cd dillinger
-npm run-script build-docker
-```
-This will create the dillinger image and pull in the necessary dependencies. Moreover, this uses a _hack_ to get a more optimized `npm` build by copying the dependencies over and only installing when the `package.json` itself has changed.  Look inside the `package.json` and the `Dockerfile` for more details on how this works.
-
-Once done, run the Docker image and map the port to whatever you wish on your host. In this example, we simply map port 8000 of the host to port 80 of the Docker (or whatever port was exposed in the Dockerfile):
-
-```sh
-docker run -d -p 8000:8080 --restart="always" <youruser>/dillinger:latest
-```
-
-Verify the deployment by navigating to your server address in your preferred browser.
-
-```sh
-127.0.0.1:8000
-```
-
-#### Kubernetes + Google Cloud
-
-See [KUBERNETES.md](https://github.com/joemccann/dillinger/blob/master/KUBERNETES.md)
-
-
-#### docker-compose.yml
-
-Change the path for the nginx conf mounting path to your full path, not mine!
-
-### N|Solid and NGINX
-
-More details coming soon.
-
-
-### Todos
-
- - Write Tests
- - Rethink Github Save
- - Add Code Comments
- - Add Night Mode
-
-License
-----
-
-MIT
-
-
-**Free Software, Hell Yeah!**
-
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-
-
-   [dill]: <https://github.com/joemccann/dillinger>
-   [git-repo-url]: <https://github.com/joemccann/dillinger.git>
-   [john gruber]: <http://daringfireball.net>
-   [@thomasfuchs]: <http://twitter.com/thomasfuchs>
-   [df1]: <http://daringfireball.net/projects/markdown/>
-   [markdown-it]: <https://github.com/markdown-it/markdown-it>
-   [Ace Editor]: <http://ace.ajax.org>
-   [node.js]: <http://nodejs.org>
-   [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
-   [keymaster.js]: <https://github.com/madrobby/keymaster>
-   [jQuery]: <http://jquery.com>
-   [@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
-   [express]: <http://expressjs.com>
-   [AngularJS]: <http://angularjs.org>
-   [Gulp]: <http://gulpjs.com>
-
-   [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-   [PlGh]:  <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
-   [PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
-   [PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
+Finally, different machine learning models were tested and the linear regression models gave the best results. It was argued that the limited number of datapoints (just daily stock prices) caused the non-linear models to overfit and that access to more data could improve the results.
