@@ -22,17 +22,6 @@ The objective of this project is to create a predictive tool that uses machine l
 
 Section 2 of this report describes the data used to create a machine learning model for stock prices prediction, section 3 describes the strategy to build the model and the data preprocessing operations and section 4 shows results of the predictive model built.
 
-## Software requirements
-The software requirements to build the predictive models are:
-- python: Main programing language
-- numpy: Package for scientific computing in python
-- pandas: Package for data structures with python 
-- matplotlib: Plotting with python
-- sklearn: Package for machine learning in python
-- urllib: Package for data fetching across the web
-- re: Package for regular expression operations
-- Quandl: API to access historical stock prices from Quandl databases using Python
-
 # 2. Data description
 ## Historical stock prices data
 To create a machine learning model to make predictions, it is necessary to first "train" the model using past data. In the context of stock market pricing, the model is trained using historical data of the stock prices. For example we can use data from the past period 2003 to 2005 to train a model and then use that model to make predictions about the future. The stock price data consist of the following informations:
@@ -75,14 +64,15 @@ However, to train a machine learning model, the datasets can not contain missing
 Both option can impact the predictions therefore the way missing values are handled needs to be explained.
 In this project, all the companies whose data were not accessible through Quandl were not included in the model. If on a given day some companies have stock price data but others don't, the missing data are replaced with the data from the previous working day (This is called a forward fill method). 
 
+Below is a list of data that couldn't be accessed using Quandl:
+- JD, NCLH : Non american companies data are not available in the Quandl WIKI free database
+- KHC : Kraft Heinz Company didn't exist in 2013, Kraft and Heinz merged in 2015
+- PYPL : Paypal was a wholly owned subsidiary of eBay until 2015
+- WBA : Walgreens Boots didn't exist in 2013
+
 ### Feature naming
 When the data for different companies are queried from Quandl, they all have the same feature names, it is thus necessary to run a renaming operation when joining the datasets of the different companies. The company "ticker" symbol is simply added to the feature name: "Open" feature for "Apple" company (Ticker "AAPL") becomes "AAPL_Open".
 
-### Data clustering
-Each of the companies in the NASDAQ 100 has an influence on the value of the NASDAQ 100 index value but using the historical data from all these companies to create a machine learning model would have a high computational cost (100 companies * 270 working day per year per company * 12 values per working day = 324000 values per year). It would then take a long time to train the models on a laptop. 
-
-To reduce the amount of data to work with companies that have similar behaviors can be grouped together. To do so, an unsupervised learning "clustering technique" is used: KMeans clustering. The Kmean clustering method takes as input the historical stock prices of all companies and a user defined number of desired clusters and outputs a list of companies in each cluster. 
-In practice, we calculate the daily variation for each datapoint: "Variation" = "Close" - "Open" and use the "Variation" variable as input data for the clustering.
 
 ### Split of the data into train, cross validation and test datasets
 To create a machine learning model we create a set of data called training set for which the true value of NDX are known. This set is used to find the model (with fixed hyperparameters) coefficients that minimize the error between predictions and true values of NDX. 
@@ -99,13 +89,39 @@ Finally, we need to choose which data are used as features to predict NDX, we ca
 | 01/01/98 | 100 | 105 | 10 | 11 | 99 |
 | 02/01/98 | 105 | 110 | 11 | 12 | 87 |
 
-# 3. Results and analysis
-## Missing companies in the data acquisition process
-Data for some companies couldn't be accessed using Quandl:
-- JD, NCLH : Non american companies data are not available in the Quandl WIKI free database
-- KHC : Kraft Heinz Company didn't exist in 2013, Kraft and Heinz merged in 2015
-- PYPL : Paypal was a wholly owned subsidiary of eBay until 2015
-- WBA : Walgreens Boots didn't exist in 2013
+# 3. Numerical models
+## Software requirements
+The software requirements to build the predictive models are:
+- python: Main programing language
+- numpy: Package for scientific computing in python
+- pandas: Package for data structures with python 
+- matplotlib: Plotting with python
+- sklearn: Package for machine learning in python
+- urllib: Package for data fetching across the web
+- re: Package for regular expression operations
+- Quandl: API to access historical stock prices from Quandl databases using Python
+
+## Regression models
+A regression model relates a set of features (historical stock prices of companies) to a prediction (NASDAQ 100 index "NDX"). The regression model specifies the type of relation between the inputs and outputs of the model (ex. linear relation) but the exact parameters of the model have to be calculated using known data. 
+
+In Machine Learning, an optimization algorithm is used to find the model parameters that minimize the difference between the regression model output and the true value of the output on a "training" data set. Then the performances of different regression models (or similar models with different "hyperparameters") are compared on a different data set called "cross-validation dataset".This makes sure that the accuracy of model predictions are not limited to the training dataset but generalisable to other datasets (a model that does not generalise well to other datasets is said to "overfit").
+
+The model used in the present work are:
+- Linear Regression : parameters normalize (True/False)
+- Support Vector Regression : parameters kernel (linear/poly/rbf)
+
+### Data clustering
+Each of the companies in the NASDAQ 100 has an influence on the value of the NASDAQ 100 index value but using the historical data from all these companies to create a machine learning model would have a high computational cost (100 companies * 270 working day per year per company * 12 values per working day = 324000 values per year). It would then take a long time to train the models on a laptop. 
+
+To reduce the amount of data to work with companies that have similar behaviors can be grouped together. To do so, an unsupervised learning "clustering technique" is used: KMeans clustering. The Kmean clustering method takes as input the historical stock prices of all companies and a user defined number of desired clusters and outputs a list of companies in each cluster. 
+In practice, we calculate the daily variation for each datapoint: "Variation" = "Close" - "Open" and use the "Variation" variable as input data for the clustering.
+
+## Computational ressources
+The computer used for these calculations is a Macbook Pro 13-inch, Late 2011) with 8 GB of 1333 MHz DDR3 RAM and a 2.4 GHz Intel Core i5 processor.
+
+
+# 4. Results and analysis
+
 
 ## Company clusters
 We apply the clustering method described in the previous section for different number of clusters. The data used for the clustering corresponds to the stock prices data of the NASDAQ 100 companies for the year 2013. Results for nCluster = 10 are shown below:
