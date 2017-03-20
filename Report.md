@@ -20,12 +20,12 @@ A good capacity to understand and predict movements in the stock market is cruci
 ## Objective of the project
 The objective of this project is to create a predictive tool that uses machine learning to predict future value of the NASDAQ 100 index (NDX) using historical stock prices of different companies. The NASDAQ 100 index is a stock market index related to the capitalization value of the 100 largest non-financial companies [(NASDAQ 100)](http://www.nasdaq.com/markets/indices/nasdaq-100.aspx).
 
-Section 2 of this report describes the data used to create a machine learning model for stock prices prediction, section 3 describes the strategy to build the model and the data preprocessing operations and section 4 shows results of the predictive model built.
+Section 2 of this report describes the data used to create a machine learning model for stock prices prediction, section 3 describes the numerical models involved in the creation of a prediction tool and section 4 shows results of the predictive model built.
 
 # 2. Data description
 ## Historical stock prices data
 To create a machine learning model to make predictions, it is necessary to first "train" the model using past data. In the context of stock market pricing, the model is trained using historical data of the stock prices. For example we can use data from the past period 2003 to 2005 to train a model and then use that model to make predictions about the future. The stock price data consist of the following information:
-| Open | High | Low | Close | Volume | Dividend | Split Ratio |  
+| Open | High | Low | Close | Volume | Ex-Dividend | Split Ratio |  
 |:-----:|:------:|:------:|:-----:|:------:|:------:|:-----:|
 
 and adjusted values:
@@ -33,8 +33,7 @@ and adjusted values:
 | Adj. Open | Adj. Close | Adj. Low | Adj. High | Adj. Volume |
 |:-----:|:------:|:------:|:-----:|:------:|
 
-For a given day, the "Open" and "Close" values are the values of a stock at the opening and closing of the stock exchange. The "High" and "Low" value are the maximum and minimum values that the stock has reached during that day. The "Volume" is the total amount of stock that were sold on that day. Dividends are XXX, Split ratio is XXX and the adjusted data are XXX.
-
+For a given day, the "Open" and "Close" values are the values of a stock at the opening and closing of the stock exchange. The "High" and "Low" value are the maximum and minimum values that the stock has reached during that day. The "Volume" is the total amount of stock that were sold on that day. A company can decide to give dividend to shareholders ("Ex-Dividend" feature) or modify the number of shares that compose the company (adjusting the share value to keep the total capitalization value constant), this is dicribed by the feature "Split Ratio". After this actions are taken, the values of Open, Close, High and Low are adjusted accordingly (Adj features).
 
 ## Data Acquisition
 **Quandl API**
