@@ -201,10 +201,22 @@ In this section a linear regression model is fitted using "AdjOpen" and "AdjClos
 The company that yields the best prediction data is Maxim Integrated Products:
 "Maxim Integrated is an American, publicly traded company that designs, manufactures, and sells analog and mixed-signal integrated circuits." [(Wikipedia)](https://en.wikipedia.org/wiki/Maxim_Integrated) 
 
+**Results (using Maxim Integrated Products data as features) on the training set**
+![Alt text][MXIMtrain]
+
+**Results (using Maxim Integrated Products data as features) on the test set**
+![Alt text][MXIMtest]
+
+It appears that the predictions on the training set are not so good but predictions on the test set are much better.
+
+[MXIMtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/MXIM_Train.png  "Score on test set"
+[MXIMtest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/MXIM_Test.png  "Score on test set"
+
+
+## Next day NDX prediction: Number of clusters
 
 Using data of more than one company could improve the results, however including too many companies would increase the computational cost. Selecting the companies that give the best results on the single company test is probably not a good idea as this company might carry mostly the same information (Indeed the top 3 companies are all related to sales of electronic components). A better way to do it is to use a clustering algorithm to group similar companies and pick a company companies from each cluster to make predictions.
 
-## Next day NDX prediction: Number of clusters
 In this section the number of clusters is varied and we show the influence on the prediction results. Here the features "Open" and "Close" of the last 3 days are used for predictions.
 
 **Result on the test dataset**
