@@ -207,10 +207,20 @@ The company that yields the best prediction data is Maxim Integrated Products:
 **Results (using Maxim Integrated Products data as features) on the test set**
 ![Alt text][MXIMtest]
 
-It appears that the predictions on the training set are not so good but predictions on the test set are much better.
+It appears that the predictions on the training set are not so good but predictions on the test set are much better. For comparison, the results for the company Facebook that gives much lower results on the test set (Negative score) are shown below:
+
+**Results (using Facebook data as features) on the training set**
+![Alt text][FBtrain]
+
+**Results (using Facebook data as features) on the test set**
+![Alt text][FBtest]
+
+We observe that the predictions on the training set are better but the test set prediction are quite different from the true values.
 
 [MXIMtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/MXIM_Train.png  "Score on test set"
 [MXIMtest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/MXIM_Test.png  "Score on test set"
+[FBtrain]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/FB_Train.png  "Score on test set"
+[FBtest]: https://github.com/HugoPerrier/Udacity_Capstone/blob/master/Figures/FB_Test.png  "Score on test set"
 
 
 ## Next day NDX prediction: Number of clusters
