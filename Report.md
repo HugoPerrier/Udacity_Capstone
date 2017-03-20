@@ -111,18 +111,18 @@ The model used in the present work are:
 - Support Vector Regression : parameters kernel (linear/poly/rbf)
 
 ### Data clustering
-Each of the companies in the NASDAQ 100 has an influence on the value of the NASDAQ 100 index value but using the historical data from all these companies to create a machine learning model would have a high computational cost (100 companies * 270 working day per year per company * 12 values per working day = 324000 values per year). It would then take a long time to train the models on a laptop. 
+Each of the companies in the NASDAQ 100 has an influence on the value of the NASDAQ 100 index value but using the historical data from all these companies to create a machine learning model would have a high computational cost (270 working day per year per company = 270 datapoints per year, 100 companies * 12 stock data per company per working day = 1200 features, input matrix has a size of 270*1200). It would then take a long time to train the models on a laptop. 
 
 To reduce the amount of data to work with companies that have similar behaviors can be grouped together. To do so, an unsupervised learning "clustering technique" is used: KMeans clustering. The Kmean clustering method takes as input the historical stock prices of all companies and a user defined number of desired clusters and outputs a list of companies in each cluster. 
 In practice, we calculate the daily variation for each datapoint: "Variation" = "Close" - "Open" and use the "Variation" variable as input data for the clustering.
 
 ## Computational ressources
-The computer used for these calculations is a Macbook Pro 13-inch, Late 2011) with 8 GB of 1333 MHz DDR3 RAM and a 2.4 GHz Intel Core i5 processor.
+The computer used for these calculations is a Macbook Pro 13-inch, Late 2011) with 8 GB of 1333 MHz DDR3 RAM and a 2.4 GHz Intel Core i5 processor. The linear regression models (linear regression + SVR(kernel="linear")) could be trained in a fraction of a second on a laptop with a 2 years long dataset for the training set, 2 features per companies and a few companies. On the other hand the training times for the non linear models quickly become prohebitively long as the number of features and datapoints increases.
 
+## Prediction score
+The R^2 score is used to score the result of the predictions. A R^2 score of 1.0 means the predictions correspond exactly to the true output, a R^2 of 0.0 is returned when the model predicts a constant output independently from the features and the R^2 score can be negative if the predictions are very different from the true output.
 
 # 4. Results and analysis
-
-
 ## Company clusters
 We apply the clustering method described in the previous section for different number of clusters. The data used for the clustering corresponds to the stock prices data of the NASDAQ 100 companies for the year 2013. Results for nCluster = 10 are shown below:
 
