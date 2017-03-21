@@ -25,6 +25,7 @@ Section 2 of this report describes the data used to create a machine learning mo
 # 2. Data description
 ## Historical stock prices data
 To create a machine learning model to make predictions, it is necessary to first "train" the model using past data. In the context of stock market pricing, the model is trained using historical data of the stock prices. For example we can use data from the past period 2003 to 2005 to train a model and then use that model to make predictions about the future. The stock price data consist of the following information:
+
 | Open | High | Low | Close | Volume | Ex-Dividend | Split Ratio |  
 |:-----:|:------:|:------:|:-----:|:------:|:------:|:-----:|
 
