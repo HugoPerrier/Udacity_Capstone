@@ -1,18 +1,18 @@
 # Udacity_Capstone
 Description of the content of the folder:
 
-## Report.md
-The final Report in markdown format
+### UdacityCapstoneProject
+Capstone project report
 
 ## Folder Fig
 Contains the figures shown in the report
 
 ## Folder src
-### UdacityCapstoneNasdaqScrapping
-Contains the functions to get the list of Nasdaq companies from web scrapping
+### UdacityCapstonePrintout
+Contains functions to print out information about the run of the program
 
-### UdacityCapstoneKmeans
-Contains the code to create clusters of Nasdaq companies
+### UdacityCapstoneWriteToCSV
+Code to acquire financial data from Quandl and pandas webReader and store the data in a CSV file
 
 ### UdacityCapstoneFunctions
 Contains all the functions to do operations on datasets
